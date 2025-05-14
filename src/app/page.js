@@ -67,7 +67,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-pink-600 mb-4">Zašto joga?</h2>
           <p className="text-gray-700 mb-6">
             Joga ti pomaže da pronađeš mir, poboljšaš fleksibilnost i ojačaš
-            telo. Pridruži se časovima uživo ili pročitaj naš blog.
+            telo. Pridruži se časovima uživo ili pročitaj moj blog.
           </p>
           <a
             href="/blog"
