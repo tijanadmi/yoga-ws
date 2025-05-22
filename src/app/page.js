@@ -37,7 +37,7 @@ import Footer from "../components/Footer";
 // }
 
 export const metadata = {
-  title: "Početna",
+  title: "Početna / Joga Life",
 };
 
 export default function HomePage() {

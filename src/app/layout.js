@@ -7,7 +7,10 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Joga life",
+  title: {
+    template: "%s / Joga Life",
+    default: "Dobrodošli / Joga Life",
+  },
   description:
     "Stranica joga instruktorke sa blogom, informacijama i objavama.",
 };
