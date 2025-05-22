@@ -10,6 +10,10 @@ export function useUser() {
   useEffect(() => {
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("Greška pri dohvatanju sesije:", error.message);
+      }
       setUser(data?.session?.user || null);
       setLoading(false);
     };
