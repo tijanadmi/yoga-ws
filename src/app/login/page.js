@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/auth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -14,16 +13,26 @@ export default function LoginPage() {
     e.preventDefault();
     setErrorMsg("");
 
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
     try {
-      const userData = await login({ email, password });
-      if (!userData) {
-        setErrorMsg("Neispravni podaci za prijavu");
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        setErrorMsg(errorData.error || "Greška pri prijavi");
         return;
       }
-      // Uspesno logovan - mozes proveriti userData ako treba
-      router.push("/my_posts");
-    } catch (error) {
-      setErrorMsg(error.message || "Došlo je do greške");
+
+      router.push("/my_posts"); // ili gde god želiš
+    } catch (err) {
+      setErrorMsg("Neuspešna prijava");
+      console.error(err);
     }
   };
 
@@ -37,24 +46,22 @@ export default function LoginPage() {
             <label className="block mb-1 text-sm font-medium">Email</label>
             <input
               type="email"
-              className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-pink-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 px-3 py-2 rounded-md"
               required
             />
           </div>
-
           <div>
             <label className="block mb-1 text-sm font-medium">Lozinka</label>
             <input
               type="password"
-              className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-pink-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-gray-300 px-3 py-2 rounded-md"
               required
             />
           </div>
-
           <button
             type="submit"
             className="w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700 transition"

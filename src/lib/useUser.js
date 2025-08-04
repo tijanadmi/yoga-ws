@@ -1,35 +1,35 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { supabase } from "./supabase";
+// lib/useUser.ts
+import { useState, useEffect } from "react";
+// import { usePathname } from "next/navigation";
 
 export function useUser() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  // const pathname = usePathname();
 
   useEffect(() => {
-    const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-
-      if (error) {
-        console.error("Greška pri dohvatanju sesije:", error.message);
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/me", {
+          credentials: "include", // jako važno za cookie!
+        });
+        if (res.status === 401) {
+          // Očekivano kada korisnik nije logovan
+          setUser(null);
+          return;
+        }
+        if (!res.ok) throw new Error("Failed to fetch user");
+        const data = await res.json();
+        setUser(data?.user || null);
+      } catch (error) {
+        console.error("Greška pri dohvaćanju korisnika:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-      setUser(data?.session?.user || null);
-      setLoading(false);
     };
 
-    getSession();
-
-    // Optional: Realtime session listener
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user || null);
-      }
-    );
-
-    return () => {
-      listener.subscription.unsubscribe();
-    };
+    fetchUser();
   }, []);
 
   return { user, loading };

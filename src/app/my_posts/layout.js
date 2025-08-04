@@ -1,0 +1,17 @@
+// src/app/my_posts/layout.js
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+export default async function ProtectedLayout({ children }) {
+  const supabase = createClient();
+  console.log("ProtectedLayout running...");
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log("Session:", session);
+  if (!session?.user) {
+    redirect("/login"); // ili gde god ti je login stranica
+  }
+
+  return <>{children}</>;
+}

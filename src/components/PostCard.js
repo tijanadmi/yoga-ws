@@ -1,6 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { format } from "date-fns";
-// import DeleteReservation from "./DeleteReservation";
+import DeletePost from "./DeletePost";
+// import { deletePost } from "@/lib/actions";
 
 function PostCard({ post }) {
   const { id, title_sr, subtitle_sr, /*content_sr,*/ image_url, created_at } =
@@ -34,14 +35,14 @@ function PostCard({ post }) {
       {/* Akcije */}
       <div className="flex flex-col justify-between border-l border-pink-200 w-[100px] bg-pink-50">
         <a
-          href={`/my_posts/edit/${id}`}
-          className="group flex items-center justify-center gap-1 text-xs font-semibold text-pink-600 py-3 hover:bg-pink-100 transition-colors"
+          href={`/my_posts/form/${id}`}
+          className="group flex items-center justify-center gap-2 text-xs font-bold text-pink-600 flex-grow px-3 py-3 hover:bg-pink-100 transition-colors"
         >
-          <PencilSquareIcon className="h-5 w-5 text-pink-500 group-hover:text-pink-700 transition-colors" />
+          <PencilSquareIcon className="h-5 w-5 text-pink-500 group-hover:text-pink-800 transition-colors" />
           <span>Izmeni</span>
         </a>
 
-        {/* <DeleteReservation bookingId={id} /> */}
+        <DeletePost postId={id} />
       </div>
     </div>
   );

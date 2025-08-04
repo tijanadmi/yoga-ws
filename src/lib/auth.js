@@ -5,6 +5,7 @@ export async function login({ email, password }) {
     email,
     password,
   });
+  // console.log("Login data iz logina:", data);
 
   if (error) throw new Error(error.message);
 

@@ -1,10 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+// import { useRouter } from "next/navigation";
+import LogoutButton from "./LogoutButton";
 
 export default function Navigation({ onLinkClick, user = null }) {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  // const router = useRouter();
+  const adminRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (adminRef.current && !adminRef.current.contains(e.target)) {
+        setIsAdminOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navLinks = [
     { href: "/", label: "Početna" },
@@ -27,7 +44,7 @@ export default function Navigation({ onLinkClick, user = null }) {
             Prijavi se
           </Link>
         ) : (
-          <div className="relative">
+          <div ref={adminRef} className="relative">
             <button
               onClick={() => setIsAdminOpen(!isAdminOpen)}
               className="font-semibold text-pink-600"
@@ -39,24 +56,30 @@ export default function Navigation({ onLinkClick, user = null }) {
                 <Link
                   href="/my_posts"
                   className="block px-4 py-2 hover:bg-pink-100"
-                  onClick={() => setIsAdminOpen(false)}
+                  onClick={(e) => {
+                    setIsAdminOpen(false);
+                    onLinkClick?.(e);
+                  }}
                 >
                   Postovi
                 </Link>
                 <Link
-                  href="/my_posts/new-post"
+                  href="/my_posts/form/new"
                   className="block px-4 py-2 hover:bg-pink-100"
-                  onClick={() => setIsAdminOpen(false)}
+                  onClick={(e) => {
+                    setIsAdminOpen(false);
+                    onLinkClick?.(e);
+                  }}
                 >
                   Novi Post
                 </Link>
-                <Link
-                  href="/logout"
-                  className="block px-4 py-2 hover:bg-pink-100"
-                  onClick={() => setIsAdminOpen(false)}
-                >
-                  Odjavi se
-                </Link>
+                <LogoutButton
+                  className="block w-full text-left px-4 py-2 hover:bg-pink-100"
+                  onClick={(e) => {
+                    setIsAdminOpen(false);
+                    onLinkClick?.(e);
+                  }}
+                />
               </div>
             )}
           </div>
@@ -87,9 +110,10 @@ export default function Navigation({ onLinkClick, user = null }) {
             >
               Novi Post
             </Link>
-            <Link href="/logout" className="py-2" onClick={onLinkClick}>
-              Logout
-            </Link>
+            <LogoutButton
+              className="py-2 text-left w-full"
+              onClick={onLinkClick}
+            />
           </>
         )}
       </div>

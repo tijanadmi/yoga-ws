@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
 export const getPosts = async function () {
@@ -26,10 +27,24 @@ export async function getPostById(id) {
     .eq("id", id)
     .single();
 
-  if (error) {
+  /*if (error) {
     console.error("Greška pri dohvatanju posta:", error);
     return null;
+  }*/
+
+  if (error) {
+    console.error(error);
+    notFound();
   }
 
   return data;
+}
+
+export async function deletePostById(postId) {
+  const { error } = await supabase.from("posts").delete().eq("id", postId);
+
+  if (error) {
+    console.error("Greška prilikom brisanja posta:", error.message);
+    throw error;
+  }
 }
