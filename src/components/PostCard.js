@@ -8,7 +8,8 @@ function PostCard({ post }) {
     post;
 
   return (
-    <div className="flex w-full bg-white rounded-2xl shadow-md overflow-hidden border border-pink-200">
+    // <div className="flex w-full bg-white rounded-2xl shadow-md overflow-hidden border border-pink-200">
+    <div className="flex flex-col justify-between border-l border-pink-200 w-24 sm:w-[100px] bg-pink-50">
       {/* Slika */}
       <div className="relative w-32 h-32 flex-shrink-0">
         <img
