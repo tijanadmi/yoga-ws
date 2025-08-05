@@ -54,7 +54,8 @@ export const metadata = {
 export default function PostsPage() {
   return (
     <Layout>
-      <section className="py-16 bg-white text-gray-800">
+      {/* <section className="py-16 bg-white text-gray-800"> */}
+      <section className="bg-white text-gray-800">
         {/* <div className="container mx-auto px-4 max-w-4xl"> */}
         <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-semibold text-2xl text-accent-400 mb-7">

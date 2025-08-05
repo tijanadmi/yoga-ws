@@ -21,8 +21,21 @@ h4 {
 }
 
 /* Sekcije */
-section {
+ {
+   {
+    /* section {
   @apply py-12 px-4 sm:px-6 lg:px-8;
+} */
+  }
+}
+section {
+  @apply py-12;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* Dugmad */
