@@ -8,7 +8,7 @@ function PostCard({ post }) {
     post;
 
   return (
-    <div className="flex bg-white rounded-2xl shadow-md overflow-hidden border border-pink-200">
+    <div className="flex w-full bg-white rounded-2xl shadow-md overflow-hidden border border-pink-200">
       {/* Slika */}
       <div className="relative w-32 h-32 flex-shrink-0">
         <img
@@ -19,7 +19,7 @@ function PostCard({ post }) {
       </div>
 
       {/* Tekstualni sadržaj */}
-      <div className="flex-grow px-6 py-4 flex flex-col justify-between">
+      <div className="flex-grow min-w-0 px-6 py-4 flex flex-col justify-between">
         <div>
           <h3 className="text-lg md:text-xl font-semibold text-gray-800">
             {title_sr}
@@ -33,7 +33,8 @@ function PostCard({ post }) {
       </div>
 
       {/* Akcije */}
-      <div className="flex flex-col justify-between border-l border-pink-200 w-[100px] bg-pink-50">
+      <div className="flex-shrink-0 w-24 sm:w-[100px] bg-pink-50 border-l border-pink-200 flex flex-col justify-between">
+        {/* <div className="flex flex-col justify-between border-l border-pink-200 w-[100px] bg-pink-50"> */}
         <a
           href={`/my_posts/form/${id}`}
           className="group flex items-center justify-center gap-2 text-xs font-bold text-pink-600 flex-grow px-3 py-3 hover:bg-pink-100 transition-colors"

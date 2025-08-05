@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export default async function ProtectedLayout({ children }) {
   const supabase = createClient();
-  console.log("ProtectedLayout running...");
+  // console.log("ProtectedLayout running...");
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -13,5 +13,9 @@ export default async function ProtectedLayout({ children }) {
     redirect("/login"); // ili gde god ti je login stranica
   }
 
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen w-full overflow-x-hidden bg-white text-gray-800">
+      {children}
+    </div>
+  );
 }
