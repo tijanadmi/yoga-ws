@@ -104,7 +104,7 @@ export default function Navigation({ onLinkClick, user = null }) {
               Postovi
             </Link>
             <Link
-              href="/my_posts/new-post"
+              href="/my_posts/form/new"
               className="py-2"
               onClick={onLinkClick}
             >
